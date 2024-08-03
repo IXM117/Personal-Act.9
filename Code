@@ -123,9 +123,9 @@ public class Program
             Console.WriteLine("|3| Reabastecer producto");
             Console.WriteLine("|4| Modificar producto");
             Console.WriteLine("|5| Mostrar resumen diario");
-            Console.WriteLine("|6| Salir\n\n\n");
+            Console.WriteLine("|6| Salir");
 
-            Console.WriteLine("Recomendación: utilice el apartado No.1 al iniciar para poder realizar el resto de operaciones de manera");
+            Console.WriteLine("\n\n\nRecomendación: utilice el apartado No.1 al iniciar para poder realizar el resto de operaciones de manera");
             Console.WriteLine("satisfactoria.");
 
             string opcion = Console.ReadLine();
