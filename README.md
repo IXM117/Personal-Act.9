@@ -1,7 +1,14 @@
 # Personal-Act.9
 Gestión de inventario de tienda con productos y operaciones básicas [C#] [POO] [Métodos]
 
-# Gestión de Inventario de Tienda
+## ¿Por qué esta aplicación?
+
+- **P1**: la aplicación que se realizó junto a compañeros de clase me parecía poco funcional.
+- **P2**: la misma fué básicamente la presentada por el maestro y muy poco creativa (una copia) solo se cambió minimamente la estructura.
+
+# Descripción
+
+## Gestión de Inventario de Tienda
 
 Esta aplicación de consola en C# permite gestionar el inventario de una tienda, incluyendo la adición, venta, reabastecimiento y modificación de productos. También proporciona un resumen diario del inventario.
 
@@ -20,4 +27,3 @@ Esta aplicación de consola en C# permite gestionar el inventario de una tienda,
 3. **Reabastecer Producto**: Ingrese el nombre del producto y la cantidad a reabastecer.
 4. **Modificar Producto**: Ingrese el nombre del producto, el nuevo precio y el nuevo stock.
 5. **Mostrar Resumen Diario**: Muestra el resumen del inventario actual.
-
