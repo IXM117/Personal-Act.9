@@ -1,0 +1,186 @@
+using System;
+using System.Collections.Generic;
+
+public class Producto
+{
+    public string Nombre { get; set; }
+    public decimal Precio { get; set; }
+    public int Stock { get; set; }
+
+    public Producto(string nombre, decimal precio, int stock)
+    {
+        Nombre = nombre;
+        Precio = precio;
+        Stock = stock;
+    }
+
+    public void Vender(int cantidad)
+    {
+        if (Stock >= cantidad)
+        {
+            Stock -= cantidad;
+            Console.WriteLine($"{cantidad} unidades de {Nombre} vendidas.");
+        }
+        else
+        {
+            Console.WriteLine("Stock insuficiente.");
+        }
+    }
+
+    public void Reabastecer(int cantidad)
+    {
+        Stock += cantidad;
+        Console.WriteLine($"{cantidad} unidades de {Nombre} reabastecidas.");
+    }
+
+    public void MostrarResumen()
+    {
+        Console.WriteLine($"Producto: {Nombre}, Precio: {Precio:C}, Stock: {Stock}");
+    }
+}
+
+public class Tienda
+{
+    private List<Producto> productos = new List<Producto>();
+
+    public void AgregarProducto(Producto producto)
+    {
+        productos.Add(producto);
+        Console.WriteLine($"Producto {producto.Nombre} agregado.");
+        MostrarResumenDiario();
+    }
+
+    public Producto ConsultarProducto(string nombre)
+    {
+        return productos.Find(p => p.Nombre == nombre);
+    }
+
+    public void ModificarProducto(string nombre, decimal nuevoPrecio, int nuevoStock)
+    {
+        Producto producto = ConsultarProducto(nombre);
+        if (producto != null)
+        {
+            producto.Precio = nuevoPrecio;
+            producto.Stock = nuevoStock;
+            Console.WriteLine($"Producto {nombre} modificado.");
+            MostrarResumenDiario();
+        }
+        else
+        {
+            Console.WriteLine("Producto no encontrado.");
+        }
+    }
+
+    public void MostrarResumenDiario()
+    {
+        Console.WriteLine("Resumen del día:");
+        foreach (var producto in productos)
+        {
+            producto.MostrarResumen();
+        }
+    }
+
+    public void VenderProducto(string nombre, int cantidad)
+    {
+        Producto producto = ConsultarProducto(nombre);
+        if (producto != null)
+        {
+            producto.Vender(cantidad);
+            MostrarResumenDiario();
+        }
+        else
+        {
+            Console.WriteLine("Producto no encontrado.");
+        }
+    }
+
+    public void ReabastecerProducto(string nombre, int cantidad)
+    {
+        Producto producto = ConsultarProducto(nombre);
+        if (producto != null)
+        {
+            producto.Reabastecer(cantidad);
+            MostrarResumenDiario();
+        }
+        else
+        {
+            Console.WriteLine("Producto no encontrado.");
+        }
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Tienda tienda = new Tienda();
+
+        while (true)
+        {
+            Console.WriteLine("Seleccione una opción:");
+            Console.WriteLine("|1| Agregar producto");
+            Console.WriteLine("|2| Vender producto");
+            Console.WriteLine("|3| Reabastecer producto");
+            Console.WriteLine("|4| Modificar producto");
+            Console.WriteLine("|5| Mostrar resumen diario");
+            Console.WriteLine("|6| Salir\n\n\n");
+
+            Console.WriteLine("Recomendación: utilice el apartado No.1 al iniciar para poder realizar el resto de operaciones de manera");
+            Console.WriteLine("satisfactoria.");
+
+            string opcion = Console.ReadLine();
+
+            switch (opcion)
+            {
+                case "1":
+                    Console.Write("Nombre del producto: ");
+                    string nombre = Console.ReadLine();
+                    Console.Write("Precio del producto: ");
+                    decimal precio = decimal.Parse(Console.ReadLine());
+                    Console.Write("Stock del producto: ");
+                    int stock = int.Parse(Console.ReadLine());
+                    Producto producto = new Producto(nombre, precio, stock);
+                    tienda.AgregarProducto(producto);
+                    break;
+
+                case "2":
+                    Console.Write("Nombre del producto a vender: ");
+                    nombre = Console.ReadLine();
+                    Console.Write("Cantidad a vender: ");
+                    int cantidad = int.Parse(Console.ReadLine());
+                    tienda.VenderProducto(nombre, cantidad);
+                    break;
+
+                case "3":
+                    Console.Write("Nombre del producto a reabastecer: ");
+                    nombre = Console.ReadLine();
+                    Console.Write("Cantidad a reabastecer: ");
+                    cantidad = int.Parse(Console.ReadLine());
+                    tienda.ReabastecerProducto(nombre, cantidad);
+                    break;
+
+                case "4":
+                    Console.Write("Nombre del producto a modificar: ");
+                    nombre = Console.ReadLine();
+                    Console.Write("Nuevo precio del producto: ");
+                    precio = decimal.Parse(Console.ReadLine());
+                    Console.Write("Nuevo stock del producto: ");
+                    stock = int.Parse(Console.ReadLine());
+                    tienda.ModificarProducto(nombre, precio, stock);
+                    break;
+
+                case "5":
+                    tienda.MostrarResumenDiario();
+                    break;
+
+                case "6":
+                    return;
+
+                default:
+                    Console.WriteLine("Opción no válida.");
+                    break;
+            }
+        }
+    }
+}
+
